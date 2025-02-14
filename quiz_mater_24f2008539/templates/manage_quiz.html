@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Quiz</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background: #f8f9fa;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+        }
+        h2 {
+            color: #333;
+        }
+        .card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            border-radius: 10px;
+            border: none;
+        }
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        .btn-primary, .btn-danger, .btn-success {
+            transition: 0.3s;
+        }
+        .btn-primary:hover {
+            background: #0056b3;
+        }
+        .btn-danger:hover {
+            background: #c82333;
+        }
+        .btn-success:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="mb-3 text-center">📝 Manage Quiz</h2>
+
+        <!-- Add Question Button -->
+        <div class="text-center mb-4">
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addQuestionModal">➕ Add Question</button>
+        </div>
+
+        <!-- Questions Display Section -->
+        <div class="row">
+            {% for question in questions %}
+            <div class="col-md-4">
+                <div class="card mb-3 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">{{ question[2] }}</h5>
+                        <p class="card-text">
+                            <strong>1.</strong> {{ question[3] }} <br>
+                            <strong>2.</strong> {{ question[4] }} <br>
+                            <strong>3.</strong> {{ question[5] }} <br>
+                            <strong>4.</strong> {{ question[6] }}
+                        </p>
+                        <div class="text-center">
+                            <a href="/admin/delete_question/{{ question[0] }}" class="btn btn-danger btn-sm">❌ Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Add Question Modal -->
+    <div class="modal fade" id="addQuestionModal" tabindex="-1" aria-labelledby="addQuestionModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addQuestionModalLabel">➕ Add a New Question</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST">
+                        <div class="mb-3">
+                            <label class="fw-bold">📝 Question:</label>
+                            <input type="text" class="form-control" name="question" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="fw-bold">🔹 Option 1:</label>
+                            <input type="text" class="form-control" name="option1" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="fw-bold">🔹 Option 2:</label>
+                            <input type="text" class="form-control" name="option2" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="fw-bold">🔹 Option 3:</label>
+                            <input type="text" class="form-control" name="option3" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="fw-bold">🔹 Option 4:</label>
+                            <input type="text" class="form-control" name="option4" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="fw-bold">✅ Correct Answer:</label>
+                            <select class="form-control" name="answer" required>
+                                <option value="1">Option 1</option>
+                                <option value="2">Option 2</option>
+                                <option value="3">Option 3</option>
+                                <option value="4">Option 4</option>
+                            </select>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success">✔ Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back Button -->
+    <div class="text-center mt-4">
+        <a href='/admin' class='btn btn-secondary'>⬅ Back</a>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
